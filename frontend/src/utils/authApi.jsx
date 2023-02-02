@@ -42,7 +42,7 @@ class AuthApi {
 }
 
 const authApi = new AuthApi({
-  url: "http://localhost:3000",
+  url: process.env.REACT_APP_API_SRV,
 });
 
 export default authApi;
