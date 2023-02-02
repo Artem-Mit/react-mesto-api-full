@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const {
   USER_DOES_NOT_EXIST,
   WRONG_USER_ID,
@@ -115,7 +117,7 @@ const login = (req, res, next) => {
           if (!matched) {
             throw new AuthError(WRONG_AUTH_DATA_MESSAGE);
           }
-          const token = jwt.sign({ _id: user._id }, "eb28135ebcfc17578f96d4d65b6c7871f2c803be4180c165061d5c2db621c51b", { expiresIn: "7d" });
+          const token = jwt.sign({ _id: user._id }, NODE_ENV === "production" ? JWT_SECRET : "dev-secret", { expiresIn: "7d" });
           res.cookie("jwt", token, { maxAge: 3600000 * 24 * 7, httpOnly: true }).send({ token });
         });
     })

@@ -12,17 +12,21 @@ const { login, createUser } = require("./controllers/users");
 const errorHandler = require("./middlewares/errorHandler");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
+require("dotenv").config();
+
+const { NODE_ENV, SRV_MONGO_URL } = process.env;
+
 const app = express();
 const { PORT = 3000 } = process.env;
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  windowMs: 45 * 60 * 1000, // 45 minutes
+  max: 500, // Limit each IP to 100 requests per `window` (here, per 45 minutes)
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
 mongoose.set("strictQuery", true);
-mongoose.connect("mongodb://127.0.0.1:27017/mestodb");
+mongoose.connect(NODE_ENV === "production" ? SRV_MONGO_URL : "mongodb://127.0.0.1:27017/mestodb");
 
 app.use(cors());
 app.use(limiter);

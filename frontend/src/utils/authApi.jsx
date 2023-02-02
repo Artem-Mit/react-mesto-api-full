@@ -22,7 +22,8 @@ class AuthApi {
   async login(data) {
     const res = await fetch(`${this._url}/signin`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem('token')}` },
       body: JSON.stringify(data),
     });
     return this._checkResult(res);
@@ -33,7 +34,7 @@ class AuthApi {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "authorization": `Bearer ${localStorage.getItem('token')}`
+        authorization: `Bearer ${localStorage.getItem('token')}`
       },
     });
     return this._checkResult(res);

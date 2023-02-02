@@ -40,7 +40,6 @@ function App() {
         .checkIn(token)
         .then((res) => {
           handleLogin();
-          setUserEmail(res.data.email);
         })
         .catch((err) => console.log(err.message))
         .finally(() => history.push("/"));
@@ -55,7 +54,7 @@ function App() {
       api
         .getInitialCards()
         .then((initialCards) => {
-          setCards(initialCards);
+          setCards(initialCards.reverse());
         })
         .catch((err) => console.log(err.message));
     }
@@ -69,6 +68,7 @@ function App() {
       .getProfileInfo()
       .then((userData) => {
         setCurrentUser(userData);
+        setUserEmail(userData.email);
       })
       .catch((err) => console.log(err.message))
       .finally(() => setIsLoading(false));
