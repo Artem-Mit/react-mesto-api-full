@@ -1,6 +1,13 @@
 # react-mesto-api-full
 Проект, который совмещает в себе фронт + бэк + деплой на сервер
 
+## На сервере развернуты:
+* NodeJS
+* MongoDB
+* PM2
+* Nginx
+
+## Сервер: 
 * IP  51.250.31.245
 * Frontend  http://mesto-express-project.nomoredomainsclub.ru/
 * Backend  http://api.mesto-express-project.nomoredomainsclub.ru/
