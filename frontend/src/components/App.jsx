@@ -37,7 +37,7 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       authApi
-        .checkIn()
+        .checkIn(token)
         .then(() => {
           handleLogin();
         })

@@ -31,12 +31,12 @@ class AuthApi {
     return this._checkResult(res);
   }
 
-  async checkIn() {
+  async checkIn(token) {
     const res = await fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "authorization": `Bearer ${localStorage.getItem("token")}`
+        "authorization": `Bearer ${token}`
       }
     });
     return this._checkResult(res);

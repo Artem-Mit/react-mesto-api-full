@@ -1,13 +1,13 @@
 class Api {
   constructor(options) {
     this._url = options.url;
-    this._headers = options.headers;
   }
 
   async _useFetch(link, newMethod = "GET", newBody) {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${this._url}${link}`, {
       method: newMethod,
-      headers: this._headers,
+      headers: {"Content-Type": "application/json", "authorization": `Bearer ${token}`},
       body: JSON.stringify(newBody),
     });
     return this._checkResult(res);
@@ -51,10 +51,6 @@ class Api {
 
 const api = new Api({
   url: process.env.REACT_APP_API_SRV,
-  headers: {
-    "Content-Type": "application/json",
-    "authorization": `Bearer ${localStorage.getItem('token')}`
-  },
 });
 
 export default api;
