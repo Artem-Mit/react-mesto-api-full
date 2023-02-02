@@ -37,14 +37,14 @@ function App() {
     const token = localStorage.getItem("token");
     if (token) {
       authApi
-        .checkIn(token)
-        .then((res) => {
+        .checkIn()
+        .then(() => {
           handleLogin();
         })
         .catch((err) => console.log(err.message))
         .finally(() => history.push("/"));
     }
-  }, [loggedIn, history, userEmail]);
+  }, [history, loggedIn]);
 
   /* Загрузка карточек с сервера */
 
@@ -205,6 +205,8 @@ function App() {
       .login(data)
       .then((res) => {
         localStorage.setItem("token", res.token);
+      })
+      .then(() => {
         handleLogin();
       })
       .then(() => history.push("/"))

@@ -53,7 +53,7 @@ const api = new Api({
   url: process.env.REACT_APP_API_SRV,
   headers: {
     "Content-Type": "application/json",
-    authorization: `Bearer ${localStorage.getItem('token')}`
+    "authorization": `Bearer ${localStorage.getItem('token')}`
   },
 });
 

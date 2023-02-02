@@ -1,9 +1,9 @@
+const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const { celebrate, Joi, errors } = require("celebrate");
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
