@@ -46,6 +46,21 @@ function App() {
     }
   }, [history, loggedIn]);
 
+    /* загрузка информации о пользователе */
+
+    useEffect(() => {
+      if (loggedIn) {
+        api
+        .getProfileInfo()
+        .then((userData) => {
+          setCurrentUser(userData);
+          setUserEmail(userData.email);
+        })
+        .catch((err) => console.log(err.message))
+        .finally(() => setIsLoading(false));
+      }
+    }, [loggedIn]);
+
   /* Загрузка карточек с сервера */
 
   useEffect(() => {
@@ -57,21 +72,6 @@ function App() {
           setCards(initialCards.reverse());
         })
         .catch((err) => console.log(err.message));
-    }
-  }, [loggedIn]);
-
-  /* загрузка информации о пользователе */
-
-  useEffect(() => {
-    if (loggedIn) {
-      api
-      .getProfileInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-        setUserEmail(userData.email);
-      })
-      .catch((err) => console.log(err.message))
-      .finally(() => setIsLoading(false));
     }
   }, [loggedIn]);
 
@@ -238,6 +238,9 @@ function App() {
 
   function handleLogout() {
     localStorage.removeItem("token");
+    setLoggedIn(false)
+    setCurrentUser({})
+    setCards([])
     setUserEmail("");
   }
 
