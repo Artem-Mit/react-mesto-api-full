@@ -46,32 +46,32 @@ function App() {
     }
   }, [history, loggedIn]);
 
-    /* загрузка информации о пользователе */
-
-    useEffect(() => {
-      if (loggedIn) {
-        api
-        .getProfileInfo()
-        .then((userData) => {
-          setCurrentUser(userData);
-          setUserEmail(userData.email);
-        })
-        .catch((err) => console.log(err.message))
-        .finally(() => setIsLoading(false));
-      }
-    }, [loggedIn]);
-
-  /* Загрузка карточек с сервера */
+  /* загрузка информации о пользователе */
 
   useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
       api
+        .getProfileInfo()
+        .then((userData) => {
+          setCurrentUser(userData);
+          setUserEmail(userData.email);
+        })
+        .catch((err) => console.log(err.message));
+    }
+  }, [loggedIn]);
+
+  /* Загрузка карточек с сервера */
+
+  useEffect(() => {
+    if (loggedIn) {
+      api
         .getInitialCards()
         .then((initialCards) => {
           setCards(initialCards.reverse());
         })
-        .catch((err) => console.log(err.message));
+        .catch((err) => console.log(err.message))
+        .finally(() => setIsLoading(false));
     }
   }, [loggedIn]);
 
@@ -239,7 +239,7 @@ function App() {
   function handleLogout() {
     localStorage.removeItem("token");
     setLoggedIn(false)
-    setCurrentUser({})
+    setCurrentUser({ name: "", about: "" })
     setCards([])
     setUserEmail("");
   }

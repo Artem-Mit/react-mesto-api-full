@@ -1,3 +1,4 @@
+require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -11,8 +12,6 @@ const auth = require("./middlewares/auth");
 const { login, createUser } = require("./controllers/users");
 const errorHandler = require("./middlewares/errorHandler");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
-
-require("dotenv").config();
 
 const { NODE_ENV, SRV_MONGO_URL } = process.env;
 
