@@ -117,7 +117,7 @@ const login = (req, res, next) => {
           if (!matched) {
             throw new AuthError(WRONG_AUTH_DATA_MESSAGE);
           }
-          const token = jwt.sign({ _id: user._id }, NODE_ENV === "production" ? JWT_SECRET : "dev-secret", { expiresIn: "7d" });
+          const token = jwt.sign({ _id: user._id }, (NODE_ENV === "production" ? JWT_SECRET : "dev-secret"), { expiresIn: "7d" });
           res.cookie("jwt", token, { maxAge: 3600000 * 24 * 7, httpOnly: true }).send({ token });
         });
     })
